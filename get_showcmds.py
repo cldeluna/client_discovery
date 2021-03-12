@@ -25,16 +25,7 @@ import getpass
 
 def get_creds(debug=True):
     """
-    Brief function to set environment variables (name/value) using the Python built in os module
-
-    The function has 4 optional parameters:
-    desc: Cosmetic message for the Input text to remind the user what key/value pair is being requested.
-    Default: "Username"
-    always_upper: Boolean used to convert the name to Uppercase to adhere to convention Default: True
-    sensitive: Boolean used to
-
-    Returns:
-    os_var_valid; the variable is set and valid
+    Function to interactively set credentials
     """
 
     user = input("Username [%s]: " % getpass.getuser())
@@ -44,7 +35,9 @@ def get_creds(debug=True):
 
     print("Password and Enable Password will not be echoed to the screen or saved.")
     if arguments.file_of_devs:
-        print(f"*** These credentials will be use for all devices in the file {arguments.file_of_devs}***")
+        print(
+            f"*** These credentials will be use for all devices in the file {arguments.file_of_devs}***"
+        )
     pwd = getpass.getpass("Password: ")
 
     enable = getpass.getpass("Enable: ")
@@ -55,13 +48,6 @@ def get_creds(debug=True):
 def main():
     """
     Basic Netmiko script showing how to connect to a device and save the output.
-
-    # user = os.environ.get('username')
-    # pwd = os.environ.get('password')
-    # sec = os.environ.get('secret')
-
-    # sbx-nxos-mgmt.cisco.com ansible_host=sbx-nxos-mgmt.cisco.com ansible_port=8181 username=admin password=Admin_1234!
-    # ios-xe-mgmt.cisco.com ansible_host=ios-xe-mgmt.cisco.com port=8181 username=root password=D_Vay!_10&
 
     """
 
@@ -87,7 +73,9 @@ def main():
     elif arguments.device:
         device_list.append(arguments.device)
     else:
-        print(f"ERROR! Please provide the IP or FQDN of a single device using the -d option or a text file of devices using the -f option!")
+        print(
+            f"ERROR! Please provide the IP or FQDN of a single device using the -d option or a text file of devices using the -f option!"
+        )
         exit("No devices provided. Aborting Execution.")
 
     # SAVING OUTPUT
@@ -115,7 +103,6 @@ def main():
         sec = pwd
 
     for dev in device_list:
-
         devdict = {
             "device_type": arguments.device_type,
             "ip": dev,
@@ -222,7 +209,7 @@ if __name__ == "__main__":
         "--file_of_devs",
         action="store",
         help="Provide the full path to a text file containing an IP or FQDN on each line (see example_device_file.txt) "
-             "to execute show commands on multiple devices with the same credentials.",
+        "to execute show commands on multiple devices with the same credentials.",
         default="",
     )
     arguments = parser.parse_args()
