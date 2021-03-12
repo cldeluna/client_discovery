@@ -2,15 +2,15 @@
 
 
 
-<img src="images/EIAlogo_OnWhite-01-Transparent.jpg" alt="EIAlogo_OnWhite-01-Transparent" style="zoom:5%;" />
+<img src="images/EIAlogo_FullText_OnBlack-01.jpg" alt="EIAlogo_FullText_OnBlack-01" style="zoom:5%;" />
 
-##Synopsis
+## Synopsis
 
 Commonly used Netmiko utilities for client discovery.
 
 
 
-##Installation
+## Installation
 
 
 
@@ -20,7 +20,7 @@ pip install -r requests.txt
 
 
 
-##Usage
+## Usage
 
 
 
@@ -81,7 +81,7 @@ Saving show command output to /Users/claudia/Dropbox (Indigo Wire Networks)/scri
 
 
 
-##### Text File
+##### Text File of Devices
 
 ```
 (client_discovery) claudia@Claudias-iMac client_discovery % cat example_device_file.txt 
