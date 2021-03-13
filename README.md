@@ -153,9 +153,9 @@ Example:
 
 In this example the **get_showcmds.py** file is executed with 
 
-- The ***b*** option so that credentials are provided via the command line interactively
+- The ***-c*** option so that credentials are provided via the command line interactively
 - The ***-s*** option is used to only run the "show version" command
-- The ***-f*** option is used to execute this agains the IPs or FQDNs in the provided text file.
+- The ***-f*** option is used to execute this against the IPs or FQDNs in the provided text file.
 
 ```
 (client_discovery) claudia@Claudias-iMac client_discovery % python get_showcmds.py -c -s "show ver" -f example_device_file.txt
