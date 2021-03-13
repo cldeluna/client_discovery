@@ -20,23 +20,92 @@ Commonly used Netmiko utilities for client discovery.
 
 ##### 
 
+##### 1 - Install Python
+
+- Mac
+  - Install with [HomeBrew](https://programwithus.com/learn/python/install-python3-mac)
+- Windows
+  - [Download Python 3.8.8](https://www.python.org/downloads/release/python-388/)
+
+##### 2 - Clone this repository
+
+- Go to the [repository on GitHub](https://github.com/cldeluna/client_discovery) and click the Code button.
+
+![clone](images/clone.jpg)
+
+
+
+
+
+- Select a location on your system for the clone or download.
+
 ```
-claudia@Claudias-iMac vEnvs % python3.8 -m venv client_discovery
-claudia@Claudias-iMac vEnvs % cd client_discovery
-claudia@Claudias-iMac client_discovery % pwd
-/Users/claudia/vEnvs/client_discovery
-claudia@Claudias-iMac client_discovery % ls
-bin		include		lib		pyvenv.cfg
-claudia@Claudias-iMac client_discovery % cd bin
-claudia@Claudias-iMac bin % ls
-Activate.ps1		activate.fish		blackd			easy_install-3.8	pip			pyserial-miniterm	python3
-activate		black			dotenv			futurize		pip3			pyserial-ports		python3.8
-activate.csh		black-primer		easy_install		pasteurize		pip3.8			python
-claudia@Claudias-iMac bin % source activate
-(client_discovery) claudia@Claudias-iMac bin %
+claudia@Claudias-iMac ~ % cd  Clones
+claudia@Claudias-iMac Clones % pwd
+/Users/claudia/Clones
+claudia@Claudias-iMac Clones % git clone https://github.com/cldeluna/client_discovery.git
+Cloning into 'client_discovery'...
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 30 (delta 9), reused 28 (delta 7), pack-reused 0
+Unpacking objects: 100% (30/30), done.
+claudia@Claudias-iMac Clones %
 ```
 
 
+
+##### 3 - Define a Virtual Environment for the repo
+
+
+
+```
+claudia@Claudias-iMac client_discovery % ls -l
+total 96
+-rw-r--r--  1 claudia  staff  1098 Mar 13 08:53 LICENSE
+-rw-r--r--  1 claudia  staff  5939 Mar 13 08:53 README.md
+-rw-r--r--  1 claudia  staff  6237 Mar 13 08:53 add_2env.py
+-rw-r--r--  1 claudia  staff    25 Mar 13 08:53 example_device_file.txt
+-rw-r--r--  1 claudia  staff  6452 Mar 13 08:53 get_showcmds.py
+drwxr-xr-x  5 claudia  staff   160 Mar 13 08:53 images
+-rw-r--r--  1 claudia  staff   405 Mar 13 08:53 requirements.txt
+-rw-r--r--  1 claudia  staff  1781 Mar 13 08:53 show_cmds.yml
+-rw-r--r--  1 claudia  staff  4745 Mar 13 08:53 utils.py
+claudia@Claudias-iMac client_discovery %
+claudia@Claudias-iMac client_discovery %
+claudia@Claudias-iMac client_discovery % python3 -m venv myvenv
+claudia@Claudias-iMac client_discovery % ls -l
+total 96
+-rw-r--r--  1 claudia  staff  1098 Mar 13 08:53 LICENSE
+-rw-r--r--  1 claudia  staff  5939 Mar 13 08:53 README.md
+-rw-r--r--  1 claudia  staff  6237 Mar 13 08:53 add_2env.py
+-rw-r--r--  1 claudia  staff    25 Mar 13 08:53 example_device_file.txt
+-rw-r--r--  1 claudia  staff  6452 Mar 13 08:53 get_showcmds.py
+drwxr-xr-x  5 claudia  staff   160 Mar 13 08:53 images
+drwxr-xr-x  6 claudia  staff   192 Mar 13 09:01 myvenv
+-rw-r--r--  1 claudia  staff   405 Mar 13 08:53 requirements.txt
+-rw-r--r--  1 claudia  staff  1781 Mar 13 08:53 show_cmds.yml
+-rw-r--r--  1 claudia  staff  4745 Mar 13 08:53 utils.py
+
+```
+
+
+
+
+
+##### 4 - Activate your virtual environment
+
+###### Mac
+
+```
+claudia@Claudias-iMac client_discovery %
+claudia@Claudias-iMac client_discovery % source ./myvenv/bin/activate
+(myvenv) claudia@Claudias-iMac client_discovery %
+```
+
+
+
+##### 5 - Install the required Python Modules for this repository
 
 With your virtual environment activated, install the requirements for this repository.
 
