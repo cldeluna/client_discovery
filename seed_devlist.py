@@ -105,7 +105,6 @@ def main():
     root_dict = {}
     print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
-    resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
     resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname")
 
     if resp_hostname:
@@ -113,6 +112,8 @@ def main():
         hostname = _[1].strip()
     else:
         hostname = arguments.seed_device
+
+    resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
     root_dict.update(
         {
@@ -123,6 +124,9 @@ def main():
     )
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show cdp neighbors detail")
+    if type(resp) == str and "not enabled" in resp:
+        print(f"CDP is not enabled on device. Aborting process.")
+        exit()
 
     cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
 
