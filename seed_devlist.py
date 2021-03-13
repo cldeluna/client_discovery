@@ -61,13 +61,6 @@ def main():
     usr_env = add_2env.check_env("NET_USR")
     pwd_env = add_2env.check_env("NET_PWD")
 
-    if not usr_env["VALID"] and not pwd_env["VALID"]:
-        add_2env.set_env()
-        # Call the set_env function with a description indicating we are setting a password and set the
-        # sensitive option to true so that the password can be typed in securely without echo to the screen
-        add_2env.set_env(desc="Password", sensitive=True)
-
-
     # SAVING OUTPUT
     utils.sub_dir(arguments.output_subdir)
 
@@ -91,6 +84,12 @@ def main():
         sec = os.environ["NET_PWD"]
         mfa = pwd
         sec = pwd
+
+    # if not usr_env["VALID"] and not pwd_env["VALID"]:
+    #     add_2env.set_env()
+    #     # Call the set_env function with a description indicating we are setting a password and set the
+    #     # sensitive option to true so that the password can be typed in securely without echo to the screen
+    #     add_2env.set_env(desc="Password", sensitive=True)
 
     # Create login object for netmiko
     dev_obj = {}
