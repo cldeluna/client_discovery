@@ -110,7 +110,7 @@ claudia@Claudias-iMac client_discovery % source ./myvenv/bin/activate
 With your virtual environment activated, install the requirements for this repository.
 
 ```
-(client_discovery) claudia@Claudias-iMac bin % pip install -r requests.txt
+(client_discovery) claudia@Claudias-iMac bin % pip install -r requirements.txt
 ```
 
 

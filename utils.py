@@ -19,6 +19,7 @@ import json
 import os
 import re
 import dotenv
+import getpass
 import add_2env
 
 
@@ -144,6 +145,134 @@ def open_file(filename, mode="r", encoding="utf-8", debug=False):
               f"\nPlease make sure all result files are closed!")
 
     return file_handle
+
+
+def get_creds(debug=True):
+    """
+    Function to interactively set credentials
+    """
+
+    user = input("Username [%s]: " % getpass.getuser())
+
+    if not user:
+        user = getpass.getuser()
+
+    print("Password and Enable Password will not be echoed to the screen or saved.")
+
+    pwd = getpass.getpass("Password: ")
+
+    enable = getpass.getpass("Enable: ")
+
+    return user, pwd, enable
+
+
+def create_devobj_from_json_list(dev):
+    """
+        dev = {
+        'device_type': 'cisco_nxos',
+        'ip' : 'sbx-nxos-mgmt.cisco.com',
+        'username' : user,
+        'password' : pwd,
+        'secret' : sec,
+        'port' : 8181
+    }
+    """
+    dotenv.load_dotenv()
+    dev_obj = {}
+    # print(os.environ)
+    usr = os.environ['NET_USR']
+    pwd = os.environ['NET_PWD']
+
+    core_dev = r'(ar|as|ds|cs){1}\d\d'
+    dev_obj.update({'ip': dev.strip()})
+    dev_obj.update({'username': usr})
+    dev_obj.update({'password': pwd})
+    dev_obj.update({'secret': pwd})
+    dev_obj.update({'port': 22})
+    if re.search(core_dev, dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_ios'})
+    elif re.search(r'-srv\d\d', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_nxos'})
+    elif re.search(r'-sp\d\d', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'silverpeak'})
+    elif re.search(r'-wlc\d\d', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_wlc'})
+    elif re.search('10.1.10.109', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_wlc'})
+        dev_obj.update({'username': 'adminro'})
+        dev_obj.update({'password': 'Readonly1'})
+        dev_obj.update({'secret': 'Readonly1'})
+        # dev_obj.update({'username': 'admin'})
+        # dev_obj.update({'password': 'A123m!'})
+        # dev_obj.update({'secret': 'A123m!'})
+    elif re.search('10.1.10.', dev, re.IGNORECASE) or re.search('1.1.1.', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_ios'})
+    elif re.search('10.', dev, re.IGNORECASE):
+        dev_obj.update({'device_type': 'cisco_ios'})
+    else:
+        dev_obj.update({'device_type': 'unknown'})
+
+    return dev_obj
+
+
+def get_show_cmd_parsed(dev, shcmd, save_2json=False, level=0, debug=False):
+
+    if level == 0:
+        print(f"\n\n==== Device {dev} getting command {shcmd}")
+    elif level == 1:
+        print(f"\n\t\t--- Device {dev} getting command {shcmd}")
+    elif level == 2:
+        print(f"\n\t\t\t- Device {dev} getting command {shcmd}")
+
+    outdir = 'local'
+
+    devdict = create_cat_devobj_from_json_list(dev)
+
+    if debug: print(f'devdict is {devdict}')
+
+    # Default to Cisco IOS device type
+    if devdict['device_type'] == 'unknown':
+        devdict.update({'device_type': 'cisco_ios'})
+
+    # if devdict['device_type'] in ['cisco_ios', 'cisco_nxos', 'cisco_wlc']:
+    resp = conn_and_get_output_parsed(devdict, shcmd)
+    # print(resp)
+    if save_2json:
+        output_dir = os.path.join(os.getcwd(), outdir, f"{dev}_{shcmd.replace(' ', '_')}.json")
+        print(f"Saving JSON to {output_dir}")
+        with open(output_dir, 'w') as f:
+            json.dump(resp, f, indent=4)
+    # else:
+    #     print(f"\n\n\txxx Skip Device {dev} Type {devdict['device_type']}")
+
+    return resp
+
+
+def conn_and_get_output_parsed(dev_dict, cmd, debug=False):
+
+    os.environ["NET_TEXTFSM"] = "./ntc-templates/ntc_templates/templates"
+
+    response = ""
+    output = ""
+
+    try:
+        net_connect = netmiko.ConnectHandler(**dev_dict)
+    except netmiko.ssh_exception.NetmikoTimeoutException:
+        print(f"Cannot connect to device {dev_dict['ip']}. Connection Timed Out!")
+    except netmiko.ssh_exception.NetMikoAuthenticationException:
+        print(f"Cannot connect to device {dev_dict['ip']}. Authentication Exception!")
+
+    if debug:
+        print(f"--- Show Command: {cmd}")
+    try:
+        output = net_connect.send_command(cmd.strip(), use_textfsm=True)
+    except Exception as e:
+        print(f"Cannot execute command {cmd} on device {dev_dict['ip']}.")
+        print(f"{e}\n")
+
+    return output
+
+
 
 
 def main():

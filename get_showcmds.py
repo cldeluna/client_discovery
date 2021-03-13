@@ -1,5 +1,5 @@
 #!/usr/bin/python -tt
-# Project: netmiko38
+# Project: client_discovery
 # Filename: get_showcmds.py
 # claudia
 # PyCharm
@@ -55,7 +55,7 @@ def main():
     print(f"===== Date is {datestamp} ====")
 
     # Load Credentials from environment variables
-    dotenv.load_dotenv(verbose=True)
+    dotenv.load_dotenv(verbose=False)
 
     fn = "show_cmds.yml"
     cmd_dict = utils.read_yaml(fn)
@@ -90,7 +90,7 @@ def main():
         mfa = f"{pwd}{mfa_code.strip()}"
         sec = sec
     elif arguments.credentials:
-        uname, passwd, enable = get_creds()
+        uname, passwd, enable = utils.get_creds()
         usr = uname
         mfa = passwd
         sec = enable
