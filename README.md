@@ -238,6 +238,22 @@ Usage: ' python get_showcmds.py -d my_switch_hostname.my.domain'
 
 Often a single source of truth is not available.  This script takes in a mandatory Layer 3 devices (collapsed core or distribution) and builds a list of the CDP switch neighbors (Cisco WS-XX) which can be provided to the get_showcmds.py script with the -f option.  The script only goes one level deep.
 
+Note: this script requires that the [ntc-templates repository](https://github.com/networktocode/ntc-templates) be cloned into the repo.
+
+```
+(client_discovery) claudia@Claudias-iMac client_discovery % git clone https://github.com/networktocode/ntc-templates.git
+Cloning into 'ntc-templates'...
+remote: Enumerating objects: 9053, done.
+remote: Total 9053 (delta 0), reused 0 (delta 0), pack-reused 9053
+Receiving objects: 100% (9053/9053), 2.45 MiB | 4.50 MiB/s, done.
+Resolving deltas: 100% (5040/5040), done.
+
+```
+
+In addition, please run pip install -r requirements.txt if you had an older version of this repository.
+
+Example:
+
 ![seed_script_output](images/seed_script_output.jpg)
 
 
