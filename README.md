@@ -234,6 +234,28 @@ Usage: ' python get_showcmds.py -d my_switch_hostname.my.domain'
 
 
 
+### seed_devlist.py
+
+Often a single source of truth is not available.  This script takes in a mandatory Layer 3 devices (collapsed core or distribution) and builds a list of the CDP switch neighbors (Cisco WS-XX) which can be provided to the get_showcmds.py script with the -f option.  The script only goes one level deep.
+
+![seed_script_output](images/seed_script_output.jpg)
+
+
+
+Example if Layer 3 device is not running CDP.
+
+```
+(client_discovery) claudia@Claudias-iMac client_discovery % python seed_devlist.py ios-xe-mgmt.cisco.com -c -p 8181 
+========== Date is 2021-03-13 =========
+Username [claudia]: root
+Password and Enable Password will not be echoed to the screen or saved.
+Password: 
+Enable: 
+========== GET NEIGHBORS FROM SEED DEVICE ios-xe-mgmt.cisco.com ==========
+CDP is not enabled on device. Aborting process.
+
+```
+
 
 
 ##Licensing

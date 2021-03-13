@@ -92,7 +92,7 @@ def main():
         mfa = pwd
         sec = pwd
 
-
+    # Create login object for netmiko
     dev_obj = {}
     dev_obj.update({'ip': arguments.seed_device.strip()})
     dev_obj.update({'username': usr})
@@ -155,11 +155,6 @@ def main():
 
     table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
 
-    #    "SW_FOC2344L53F": {
-    #     "fqdn": "SW_FOC2344L53F",
-    #     "mgmt_ip": "192.168.1.64",
-    #     "platform": "cisco C9300L-24P-4X"
-
     table.add_column("Device", justify="right", style="cyan", no_wrap=True)
     table.add_column("FQDN", style="magenta")
     table.add_column("MGMT IP", justify="right", style="blue")
@@ -173,7 +168,6 @@ def main():
     console = Console()
     console.print(table)
     console.print(f"Total: {cdp_count}")
-
 
     print(f"\nDevice Text file saved at {text_fp}\n")
     print(f"\nDevice JSON List saved at {json_fp}\n")
