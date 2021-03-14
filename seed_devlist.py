@@ -118,73 +118,76 @@ def main():
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
-    if resp[0]['pid']:
-        platform = resp[0]['pid']
+    if resp:
+        if resp[0]['pid']:
+            platform = resp[0]['pid']
+        else:
+            platform = resp[0]['descr']
+
+        root_dict.update(
+            {
+                "fqdn": arguments.seed_device,
+                "mgmt_ip": arguments.seed_device,
+                "platform": platform
+            }
+        )
+
+        resp = utils.conn_and_get_output_parsed(dev_obj, "show cdp neighbors detail")
+        if type(resp) == str and "not enabled" in resp:
+            print(f"CDP is not enabled on device. Aborting process.")
+            exit()
+
+        cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
+
+        # print(json.dumps(cdp_dict, indent=4))
+
+        cdp_dict.update({arguments.seed_device: root_dict})
+
+        # The keys build the json dev list used by the other scripts in this repo
+        list_of_devices = list(cdp_dict.keys())
+
+        json_dir = arguments.output_subdir
+        json_fn = f"{hostname.strip()}_auto_devlist.json"
+        json_fp = os.path.join(os.getcwd(), json_dir, json_fn)
+
+        # print(f"Saving {hostname} output to: {json_fp}")
+
+        # Save a list of devices
+        utils.save_json(json_fp, list_of_devices, debug=False)
+
+        # Save the JSON data
+        json_dict = os.path.join(os.getcwd(), json_dir, f"{hostname}_auto_devdict.json")
+        utils.save_json(json_dict, cdp_dict, debug=False)
+
+        text_fn = f"{hostname}_devlist.txt"
+        text_fp = os.path.join(os.getcwd(), json_dir, text_fn)
+        with open(text_fp, 'w') as txt_file:
+            for line in list_of_devices:
+                print(f"- {line}")
+                txt_file.write(f"{line.strip()}\n")
+
+        table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
+
+        table.add_column("Device", justify="right", style="cyan", no_wrap=True)
+        table.add_column("FQDN", style="green")
+        table.add_column("MGMT IP", justify="right", style="blue")
+        table.add_column("Platform", justify="right", style="yellow")
+
+        cdp_count = 0
+        for k,v in cdp_dict.items():
+            table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
+            cdp_count += 1
+
+        console = Console()
+        console.print(table)
+        console.print(f"Total: {cdp_count}")
+
+        print(f"\nDevice Text file saved at {text_fp}\n")
+        print(f"\nDevice JSON List saved at {json_fp}\n")
+        print(f"\nDevice JSON Dictionary file saved at {json_dict}\n\n")
+
     else:
-        platform = resp[0]['descr']
-
-    root_dict.update(
-        {
-            "fqdn": arguments.seed_device,
-            "mgmt_ip": arguments.seed_device,
-            "platform": platform
-        }
-    )
-
-    resp = utils.conn_and_get_output_parsed(dev_obj, "show cdp neighbors detail")
-    if type(resp) == str and "not enabled" in resp:
-        print(f"CDP is not enabled on device. Aborting process.")
-        exit()
-
-    cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
-
-    # print(json.dumps(cdp_dict, indent=4))
-
-    cdp_dict.update({arguments.seed_device: root_dict})
-
-    # The keys build the json dev list used by the other scripts in this repo
-    list_of_devices = list(cdp_dict.keys())
-
-    json_dir = arguments.output_subdir
-    json_fn = f"{hostname.strip()}_auto_devlist.json"
-    json_fp = os.path.join(os.getcwd(), json_dir, json_fn)
-
-    # print(f"Saving {hostname} output to: {json_fp}")
-
-    # Save a list of devices
-    utils.save_json(json_fp, list_of_devices, debug=False)
-
-    # Save the JSON data
-    json_dict = os.path.join(os.getcwd(), json_dir, f"{hostname}_auto_devdict.json")
-    utils.save_json(json_dict, cdp_dict, debug=False)
-
-    text_fn = f"{hostname}_devlist.txt"
-    text_fp = os.path.join(os.getcwd(), json_dir, text_fn)
-    with open(text_fp, 'w') as txt_file:
-        for line in list_of_devices:
-            print(f"- {line}")
-            txt_file.write(f"{line.strip()}\n")
-
-    table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
-
-    table.add_column("Device", justify="right", style="cyan", no_wrap=True)
-    table.add_column("FQDN", style="green")
-    table.add_column("MGMT IP", justify="right", style="blue")
-    table.add_column("Platform", justify="right", style="yellow")
-
-    cdp_count = 0
-    for k,v in cdp_dict.items():
-        table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
-        cdp_count += 1
-
-    console = Console()
-    console.print(table)
-    console.print(f"Total: {cdp_count}")
-
-    print(f"\nDevice Text file saved at {text_fp}\n")
-    print(f"\nDevice JSON List saved at {json_fp}\n")
-    print(f"\nDevice JSON Dictionary file saved at {json_dict}\n\n")
-
+        print(f"ERROR!  No response from device! Aborting Execution.")
 
 # Standard call to the main() function.
 if __name__ == "__main__":
