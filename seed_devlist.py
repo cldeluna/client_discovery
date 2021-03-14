@@ -105,15 +105,13 @@ def main():
     print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
     resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname ")
-    print(f"hostname response is \n{resp_hostname}")
+
     if resp_hostname:
         _ = resp_hostname.split(" ")
-        print(_)
         hostname = _[1].strip()
         if "\n" in hostname:
             _ = hostname.split("\n")
             hostname = _[0].strip()
-        print(hostname)
     else:
         hostname = arguments.seed_device.strip()
     print(f"Device hostname is {hostname}")
@@ -171,6 +169,8 @@ def main():
 
     cdp_count = 0
     for k,v in cdp_dict.items():
+        print(k)
+        print(v)
         table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
         cdp_count += 1
 
