@@ -104,12 +104,12 @@ def main():
     root_dict = {}
     print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
-    resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname ")
+    resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show ver | inc uptime ")
     print(f"hostname reponse is \n{resp_hostname}")
     if resp_hostname:
         _ = resp_hostname.split(" ")
         print(_)
-        hostname = _[1].strip()
+        hostname = _[0].strip()
         print(hostname)
     else:
         hostname = arguments.seed_device.strip()
