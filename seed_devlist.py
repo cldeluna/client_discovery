@@ -105,10 +105,12 @@ def main():
     print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
     resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname")
-
+    print(f"hostname reponse is \n{resp_hostname}")
     if resp_hostname:
         _ = resp_hostname.split(" ")
+        print(_)
         hostname = _[1].strip()
+        print(hostname)
     else:
         hostname = arguments.seed_device.strip()
     print(f"Device hostname is {hostname}")
