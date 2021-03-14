@@ -138,6 +138,8 @@ def main():
     json_fn = f"{hostname.strip()}_auto_devlist.json"
     json_fp = os.path.join(os.getcwd(), json_dir, json_fn)
 
+    print(f"Saving to: {json_fp}")
+
     # Save a list of devices
     utils.save_json(json_fp, list_of_devices, debug=False)
 
