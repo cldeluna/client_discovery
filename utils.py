@@ -259,8 +259,9 @@ def conn_and_get_output_parsed(dev_dict, cmd, debug=False):
         net_connect = netmiko.ConnectHandler(**dev_dict)
     except netmiko.ssh_exception.NetmikoTimeoutException:
         print(f"Cannot connect to device {dev_dict['ip']}. Connection Timed Out!")
-    except netmiko.ssh_exception.NetMikoAuthenticationException:
+    except netmiko.ssh_exception.NetMikoAuthenticationException as e:
         print(f"Cannot connect to device {dev_dict['ip']}. Authentication Exception!")
+        print(e)
 
     if debug:
         print(f"--- Show Command: {cmd}")
