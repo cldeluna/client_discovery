@@ -60,6 +60,7 @@ def main():
 
     usr_env = add_2env.check_env("NET_USR")
     pwd_env = add_2env.check_env("NET_PWD")
+    print(add_2env.check_env("INET_USR"))
 
     # SAVING OUTPUT
     utils.sub_dir(arguments.output_subdir)
