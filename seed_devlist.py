@@ -118,6 +118,7 @@ def main():
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
+    print(resp)
     root_dict.update(
         {
             "fqdn": arguments.seed_device,
