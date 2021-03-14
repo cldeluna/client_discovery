@@ -163,7 +163,7 @@ def main():
     table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
 
     table.add_column("Device", justify="right", style="cyan", no_wrap=True)
-    table.add_column("FQDN", style="magenta")
+    table.add_column("FQDN", style="green")
     table.add_column("MGMT IP", justify="right", style="blue")
     table.add_column("Platform", justify="right", style="yellow")
 
