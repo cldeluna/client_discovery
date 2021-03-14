@@ -53,7 +53,7 @@ def get_list_of_nei(cdp_list, root_dev, level=0, debug=False):
 def main():
 
     datestamp = datetime.date.today()
-    print(f"========== Date is {datestamp} =========")
+    print(f"\n========== Date is {datestamp} =========")
 
     # Load Credentials from environment variables
     dotenv.load_dotenv(verbose=False)
@@ -102,7 +102,7 @@ def main():
 
 
     root_dict = {}
-    print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
+    print(f"\n========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
     resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname ")
 
@@ -133,9 +133,9 @@ def main():
 
     cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
 
-    print(json.dumps(cdp_dict, indent=4))
+    # print(json.dumps(cdp_dict, indent=4))
 
-    cdp_dict.update({arguments.seed_device: root_dict})
+    cdp_dict.update({hostname: root_dict})
 
     # The keys build the json dev list used by the other scripts in this repo
     list_of_devices = list(cdp_dict.keys())
@@ -144,7 +144,7 @@ def main():
     json_fn = f"{hostname.strip()}_auto_devlist.json"
     json_fp = os.path.join(os.getcwd(), json_dir, json_fn)
 
-    print(f"Saving {hostname} output to: {json_fp}")
+    # print(f"Saving {hostname} output to: {json_fp}")
 
     # Save a list of devices
     utils.save_json(json_fp, list_of_devices, debug=False)
@@ -169,8 +169,6 @@ def main():
 
     cdp_count = 0
     for k,v in cdp_dict.items():
-        print(k)
-        print(v)
         table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
         cdp_count += 1
 
