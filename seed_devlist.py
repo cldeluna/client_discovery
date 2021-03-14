@@ -110,7 +110,7 @@ def main():
         _ = resp_hostname.split(" ")
         hostname = _[1].strip()
     else:
-        hostname = arguments.seed_device
+        hostname = arguments.seed_device.strip()
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
