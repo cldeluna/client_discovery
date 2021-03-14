@@ -118,12 +118,16 @@ def main():
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
-    print(resp)
+    if resp[0]['pid']:
+        platform = resp[0]['pid']
+    else:
+        platform = resp[0]['descr']
+
     root_dict.update(
         {
             "fqdn": arguments.seed_device,
             "mgmt_ip": arguments.seed_device,
-            "platform": resp[0]['pid']
+            "platform": platform
         }
     )
 
