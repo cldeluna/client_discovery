@@ -111,6 +111,7 @@ def main():
         hostname = _[1].strip()
     else:
         hostname = arguments.seed_device.strip()
+    print(f"Device hostname is {hostname}")
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
 
