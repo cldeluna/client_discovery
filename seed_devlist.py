@@ -140,7 +140,7 @@ def main():
 
     # print(json.dumps(cdp_dict, indent=4))
 
-    cdp_dict.update({hostname: root_dict})
+    cdp_dict.update({arguments.seed_device: root_dict})
 
     # The keys build the json dev list used by the other scripts in this repo
     list_of_devices = list(cdp_dict.keys())
