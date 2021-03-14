@@ -135,7 +135,7 @@ def main():
     list_of_devices = list(cdp_dict.keys())
 
     json_dir = arguments.output_subdir
-    json_fn = f"{hostname}_auto_devlist.json"
+    json_fn = f"{hostname.strip()}_auto_devlist.json"
     json_fp = os.path.join(os.getcwd(), json_dir, json_fn)
 
     # Save a list of devices
