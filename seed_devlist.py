@@ -135,6 +135,8 @@ def main():
 
     cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
 
+    print(json.dumps(cdp_dict, indent=4))
+
     cdp_dict.update({arguments.seed_device: root_dict})
 
     # The keys build the json dev list used by the other scripts in this repo
