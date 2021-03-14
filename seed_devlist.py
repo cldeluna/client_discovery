@@ -104,7 +104,7 @@ def main():
     root_dict = {}
     print(f"========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
 
-    resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname")
+    resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname ")
     print(f"hostname reponse is \n{resp_hostname}")
     if resp_hostname:
         _ = resp_hostname.split(" ")
