@@ -13,7 +13,7 @@ Commonly used Netmiko utilities for client discovery.
 ## Installation
 
 1. Install Python (version 3.8)
-2. Close or Download this repository
+2. Clone or Download this repository
 3. Define a virtual environment
 4. Activate your virtual environment
 5. Install the required Python Modules for this repository
