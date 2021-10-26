@@ -19,7 +19,6 @@ import os
 import re
 import dotenv
 import datetime
-import json
 from rich.console import Console
 from rich.table import Table
 
