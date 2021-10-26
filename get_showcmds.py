@@ -194,7 +194,7 @@ if __name__ == "__main__":
         "-m",
         "--mfa",
         action="store_true",
-        help="Multi Factor Authentication will prompt for VIP code",
+        help="Multi Factor Authentication will prompt for VIP, MS Auth, Google auth, or other 2-Factor code",
         default=False,
     )
     parser.add_argument(
