@@ -30,6 +30,8 @@ def get_list_of_nei(cdp_list, root_dev, level=0, debug=False):
 
     # For every neighbor found weed out connections to self and connections to upstream root device
     for line in cdp_list:
+        print(line)
+        print(line.keys())
 
         tmpd = dict()
 
@@ -37,14 +39,14 @@ def get_list_of_nei(cdp_list, root_dev, level=0, debug=False):
 
             tmpd.update(
                 {
-                    "fqdn": line["destination_host"],
-                    "mgmt_ip": line["management_ip"],
+                    "fqdn": line["neighbor_name"],
+                    "mgmt_ip": line["mgmt_address"],
                     "platform": line["platform"],
                 }
             )
 
-            if line["destination_host"] not in devices_dict.keys():
-                devices_dict.update({line["destination_host"]: tmpd})
+            if line["neighbor_name"] not in devices_dict.keys():
+                devices_dict.update({line["neighbor_name"]: tmpd})
 
     return devices_dict
 
