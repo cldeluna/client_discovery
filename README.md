@@ -12,7 +12,7 @@ Commonly used Netmiko utilities for client discovery.
 
 ## Installation
 
-1. Install Python (version 3.8)
+1. Install Python (version 3.12)
 2. Clone or Download this repository
 3. Define a virtual environment
 4. Activate your virtual environment
@@ -25,7 +25,7 @@ Commonly used Netmiko utilities for client discovery.
 - Mac
   - Install with [HomeBrew](https://programwithus.com/learn/python/install-python3-mac)
 - Windows
-  - [Download Python 3.8.8](https://www.python.org/downloads/release/python-388/)
+  - [Download Python 3.12.4](https://www.python.org/downloads/)
 
 ##### 2 - Clone this repository
 
