@@ -158,8 +158,8 @@ def main():
         utils.save_json(json_fp, list_of_devices, debug=False)
 
         # Save the JSON data
-        json_dict = os.path.join(os.getcwd(), json_dir, f"{hostname}_auto_devdict.json")
-        utils.save_json(json_dict, cdp_dict, debug=False)
+        # json_dict = os.path.join(os.getcwd(), json_dir, f"{hostname}_auto_devdict.json")
+        # utils.save_json(json_dict, cdp_dict, debug=False)
 
         text_fn = f"{hostname}_devlist.txt"
         text_fp = os.path.join(os.getcwd(), json_dir, text_fn)
