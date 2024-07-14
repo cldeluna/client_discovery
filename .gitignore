@@ -12,5 +12,7 @@ Log*.txt
 ntc-templates
 *.txt
 *myenv
+*venv
+.idea
 
 
