@@ -168,25 +168,25 @@ def main():
         #         print(f"- {line}")
         #         txt_file.write(f"{line.strip()}\n")
 
-        table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
+        # table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
 
-        table.add_column("Device", justify="right", style="cyan", no_wrap=True)
-        table.add_column("FQDN", style="green")
-        table.add_column("MGMT IP", justify="right", style="blue")
-        table.add_column("Platform", justify="right", style="yellow")
+        # table.add_column("Device", justify="right", style="cyan", no_wrap=True)
+        # table.add_column("FQDN", style="green")
+        # table.add_column("MGMT IP", justify="right", style="blue")
+        # table.add_column("Platform", justify="right", style="yellow")
 
-        cdp_count = 0
-        for k,v in cdp_dict.items():
-            table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
-            cdp_count += 1
+        # cdp_count = 0
+        # for k,v in cdp_dict.items():
+        #     table.add_row(k, v['fqdn'], v['mgmt_ip'], v['platform'])
+        #     cdp_count += 1
 
-        console = Console()
-        console.print(table)
-        console.print(f"Total: {cdp_count}")
+        # console = Console()
+        # console.print(table)
+        # console.print(f"Total: {cdp_count}")
 
-        print(f"\nDevice Text file saved at {text_fp}\n")
-        print(f"\nDevice JSON List saved at {json_fp}\n")
-        print(f"\nDevice JSON Dictionary file saved at {json_dict}\n\n")
+        # print(f"\nDevice Text file saved at {text_fp}\n")
+        # print(f"\nDevice JSON List saved at {json_fp}\n")
+        # print(f"\nDevice JSON Dictionary file saved at {json_dict}\n\n")
 
     else:
         print(f"ERROR!  No response from device! Aborting Execution.")
