@@ -163,10 +163,10 @@ def main():
 
         text_fn = f"{hostname}_devlist.txt"
         text_fp = os.path.join(os.getcwd(), json_dir, text_fn)
-        with open(text_fp, 'w') as txt_file:
-            for line in list_of_devices:
-                print(f"- {line}")
-                txt_file.write(f"{line.strip()}\n")
+        # with open(text_fp, 'w') as txt_file:
+        #     for line in list_of_devices:
+        #         print(f"- {line}")
+        #         txt_file.write(f"{line.strip()}\n")
 
         table = Table(title=f"\n\nL3 Device {arguments.seed_device} CDP Switch Neighbor Summary Table")
 
