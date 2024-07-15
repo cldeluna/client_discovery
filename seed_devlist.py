@@ -97,9 +97,9 @@ def main():
     seed_device="10.1.10.66"
     dev_obj = {}
     dev_obj.update({'ip': seed_device.strip()})
-    dev_obj.update({'username': usr})
-    dev_obj.update({'password': mfa})
-    dev_obj.update({'secret': sec})
+    dev_obj.update({'username': 'cisco'})
+    dev_obj.update({'password': 'cisco'})
+    dev_obj.update({'secret': 'cisco'})
     dev_obj.update({'port': arguments.port})
     dev_obj.update({'device_type': 'cisco_ios'})
 
