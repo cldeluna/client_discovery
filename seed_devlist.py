@@ -19,8 +19,8 @@ import os
 import re
 import dotenv
 import datetime
-from rich.console import Console
-from rich.table import Table
+# from rich.console import Console
+# from rich.table import Table
 
 
 def get_list_of_nei(cdp_list, root_dev, level=0, debug=False):
@@ -59,9 +59,9 @@ def main():
     # Load Credentials from environment variables
     dotenv.load_dotenv(verbose=False)
 
-    usr_env = add_2env.check_env("NET_USR")
-    pwd_env = add_2env.check_env("NET_PWD")
-    print(add_2env.check_env("INET_USR"))
+    # usr_env = add_2env.check_env("NET_USR")
+    # pwd_env = add_2env.check_env("NET_PWD")
+    # print(add_2env.check_env("INET_USR"))
 
     # SAVING OUTPUT
     # utils.sub_dir(arguments.output_subdir)
@@ -155,7 +155,7 @@ def main():
         # print(f"Saving {hostname} output to: {json_fp}")
 
         # Save a list of devices
-        utils.save_json(json_fp, list_of_devices, debug=False)
+        # utils.save_json(json_fp, list_of_devices, debug=False)
 
         # Save the JSON data
         # json_dict = os.path.join(os.getcwd(), json_dir, f"{hostname}_auto_devdict.json")
