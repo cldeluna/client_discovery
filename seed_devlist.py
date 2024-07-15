@@ -94,8 +94,9 @@ def main():
     #     add_2env.set_env(desc="Password", sensitive=True)
 
     # Create login object for netmiko
+    seed_device="10.1.10.66"
     dev_obj = {}
-    dev_obj.update({'ip': arguments.seed_device.strip()})
+    dev_obj.update({'ip': seed_device.strip()})
     dev_obj.update({'username': usr})
     dev_obj.update({'password': mfa})
     dev_obj.update({'secret': sec})
@@ -104,7 +105,7 @@ def main():
 
 
     root_dict = {}
-    print(f"\n========== GET NEIGHBORS FROM SEED DEVICE {arguments.seed_device} ==========")
+    print(f"\n========== GET NEIGHBORS FROM SEED DEVICE {seed_device} ==========")
 
     resp_hostname = utils.conn_and_get_output_parsed(dev_obj, "show run | inc hostname ")
 
@@ -115,7 +116,7 @@ def main():
             _ = hostname.split("\n")
             hostname = _[0].strip()
     else:
-        hostname = arguments.seed_device.strip()
+        hostname = seed_device.strip()
     print(f"Device hostname is {hostname}")
 
     resp = utils.conn_and_get_output_parsed(dev_obj, "show inventory")
@@ -128,8 +129,8 @@ def main():
 
         root_dict.update(
             {
-                "fqdn": arguments.seed_device,
-                "mgmt_ip": arguments.seed_device,
+                "fqdn": seed_device,
+                "mgmt_ip": seed_device,
                 "platform": platform
             }
         )
@@ -139,11 +140,11 @@ def main():
             print(f"CDP is not enabled on device. Aborting process.")
             exit()
 
-        cdp_dict = get_list_of_nei(resp, arguments.seed_device, level=0, debug=False)
+        cdp_dict = get_list_of_nei(resp, seed_device, level=0, debug=False)
 
         # print(json.dumps(cdp_dict, indent=4))
 
-        cdp_dict.update({arguments.seed_device: root_dict})
+        cdp_dict.update({seed_device: root_dict})
 
         # The keys build the json dev list used by the other scripts in this repo
         list_of_devices = list(cdp_dict.keys())
@@ -197,10 +198,10 @@ if __name__ == "__main__":
         description="Script Description", epilog="Usage: ' python seed_devlist.py layer3_device.example.com' "
     )
 
-    parser.add_argument(
-        "seed_device",
-        help="Enter FQDN or IP of Seed or Root device to start CDP based device discovery",
-    )
+    # parser.add_argument(
+    #     "seed_device",
+    #     help="Enter FQDN or IP of Seed or Root device to start CDP based device discovery",
+    # )
 
     parser.add_argument(
         "-t",
