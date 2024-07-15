@@ -64,7 +64,7 @@ def main():
     print(add_2env.check_env("INET_USR"))
 
     # SAVING OUTPUT
-    utils.sub_dir(arguments.output_subdir)
+    # utils.sub_dir(arguments.output_subdir)
 
     if arguments.mfa:
         # User is using MFA
@@ -75,7 +75,7 @@ def main():
         mfa = f"{pwd}{mfa_code.strip()}"
         sec = sec
     elif arguments.credentials:
-        uname, passwd, enable = utils.get_creds()
+        # uname, passwd, enable = utils.get_creds()
         usr = uname
         mfa = passwd
         sec = enable
