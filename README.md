@@ -2,7 +2,7 @@
 
 
 
-<img src="images/EIAlogo_FullText_OnBlack-01.jpg" alt="EIAlogo_FullText_OnBlack-01" style="zoom:5%;" />
+<img src="images/EIALogoFINAL_medium_DarkBackground.png" alt="EIALogoFINAL_medium_DarkBackground.png" style="zoom:50%;" />
 
 ## Synopsis
 
